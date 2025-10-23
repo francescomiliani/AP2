@@ -38,7 +38,12 @@ if [ ! -d ".venv" ]; then
   uv venv
 fi
 
-source .venv/bin/activate
+# Detect if we're on Windows and use the appropriate activation script
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" ]]; then
+  source .venv/Scripts/activate
+else
+  source .venv/bin/activate
+fi
 echo "Virtual environment activated."
 
 echo "Installing project in editable mode..."
